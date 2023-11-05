@@ -30,4 +30,4 @@ function getConfig(format, banner) {
   };
 }
 
-export default [getConfig('cjs', '#!/usr/bin/env node'), getConfig('es')];
+export default [getConfig('cjs'), getConfig('es')];
