@@ -1,5 +1,4 @@
-import * as winston from 'winston';
-import type { Logger } from 'winston';
+import { createLogger, format, transports, type Logger } from 'winston';
 
 export type FileLogger = Logger;
 
@@ -21,9 +20,9 @@ export function initFileLoggerFactory({
   fileLevel = 'all',
   logFileDir,
 }: FileLoggerOptions): FileLoggerFactory {
-  const logger = winston.createLogger({
+  const logger = createLogger({
     level: 'info',
-    format: winston.format.json(),
+    format: format.json(),
     defaultMeta,
     transports: [],
   });
@@ -31,17 +30,17 @@ export function initFileLoggerFactory({
   if (!isProduction) {
     /** 非生产环境的话，打到控制台 */
     logger.add(
-      new winston.transports.Console({
-        format: winston.format.simple(),
+      new transports.Console({
+        format: format.simple(),
       }),
     );
   } else {
     if (fileLevel === 'info') {
-      logger.add(new winston.transports.File({ dirname: logFileDir, filename: 'info.log', level: 'info' }));
+      logger.add(new transports.File({ dirname: logFileDir, filename: 'info.log', level: 'info' }));
     } else if (fileLevel === 'error') {
-      logger.add(new winston.transports.File({ dirname: logFileDir, filename: 'info.log', level: 'error' }));
+      logger.add(new transports.File({ dirname: logFileDir, filename: 'info.log', level: 'error' }));
     } else {
-      logger.add(new winston.transports.File({ dirname: logFileDir, filename: 'combined.log' }));
+      logger.add(new transports.File({ dirname: logFileDir, filename: 'combined.log' }));
     }
   }
 
