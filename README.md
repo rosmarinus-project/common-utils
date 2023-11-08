@@ -27,3 +27,11 @@ This module is a wrapper for the uuid npm library
 4. AsyncTask
 
 AsyncTask is an encapsulation of promise and is used in scenarios where calls and callbacks are separated.
+
+4. FileLogger
+
+FileLogger is a file logger that can be used in nodejs and environments to output log to a local file.
+
+5. json
+
+This module is a wrapper for the JSON.stringify and JSON.parse methods to make them more secure.
