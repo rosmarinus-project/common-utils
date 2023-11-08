@@ -1,6 +1,7 @@
 import * as winston from 'winston';
+import type { Logger } from 'winston';
 
-export type FileLogger = winston.Logger;
+export type FileLogger = Logger;
 
 export interface FileLoggerFactory {
   defaultLogger: FileLogger;
