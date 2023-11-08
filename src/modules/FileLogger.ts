@@ -39,6 +39,7 @@ export function initFileLoggerFactory({
     if (fileLevel === 'in-hour') {
       logger.add(
         new DailyRotateFile({
+          dirname: logFileDir,
           filename: 'log-%DATE%.log',
           datePattern: 'YYYY-MM-DD-HH',
           // zippedArchive: true,
