@@ -18,7 +18,9 @@ function getConfig(format, banner) {
     external,
     plugins: [
       commonjs(),
-      resolve(),
+      resolve({
+        preferBuiltins: true,
+      }),
       json(),
       typescript({
         tsconfig: './tsconfig.json',
