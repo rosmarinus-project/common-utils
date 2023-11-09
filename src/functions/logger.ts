@@ -11,31 +11,33 @@ export const enum LogType {
   file = 'file',
 }
 
-const LogFunc: Record<LogType, chalk.Chalk> = {
-  info: chalk.cyan.green,
-  warn: chalk.cyan.yellow,
-  error: chalk.cyan.red,
-  file: chalk.white,
-};
+function getLogFunc(): Record<LogType, chalk.Chalk> {
+  return {
+    info: chalk.cyan.green,
+    warn: chalk.cyan.yellow,
+    error: chalk.cyan.red,
+    file: chalk.white,
+  };
+}
 
 export function info(...args: Parameters<typeof console.log>) {
-  Log(LogFunc.info(...args));
+  Log(chalk.cyan.green(...args));
 }
 
 export function warn(...args: Parameters<typeof console.log>) {
-  Log(LogFunc.warn(...args));
+  Log(chalk.cyan.yellow(...args));
 }
 
 export function error(...args: Parameters<typeof console.log>) {
-  Log(LogFunc.error(...args));
+  Log(chalk.cyan.red(...args));
 }
 
 export function file(...args: Parameters<typeof console.log>) {
-  Log(LogFunc.file(...args));
+  Log(chalk.white(...args));
 }
 
 export function logMix(output: { type: LogType; str: string }[]) {
-  const str = output.map(({ type, str }) => LogFunc[type](str)).join('');
+  const str = output.map(({ type, str }) => getLogFunc()[type](str)).join('');
 
   Log(str);
 }
