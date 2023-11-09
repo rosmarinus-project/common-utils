@@ -4,7 +4,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 
-const external = [];
+// 非全平台通用的 npm 需要在这里添加
+const external = ['winston-daily-rotate-file', 'winston', 'triple-beam'];
 
 function getConfig(format, banner) {
   return {
