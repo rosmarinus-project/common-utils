@@ -10,11 +10,12 @@ export interface FileLoggerFactory {
 }
 
 export interface FileLoggerOptions {
-  isProduction: boolean;
   defaultMeta?: any;
   logFileDir?: string;
-  /** 默认 all */
-  fileLevel?: 'error' | 'info' | 'all' | 'in-hour';
+  /** 默认按小时切分日志 */
+  fileMode?: 'console' | 'one-file' | 'in-hour';
+  /** 默认 info */
+  fileLevel?: 'error' | 'info';
 }
 
 const customFormat = format.printf((data) => {
@@ -41,16 +42,16 @@ const customFormat = format.printf((data) => {
 });
 
 export function initFileLoggerFactory({
-  isProduction,
+  fileMode = 'in-hour',
   defaultMeta,
-  fileLevel = 'all',
+  fileLevel = 'info',
   logFileDir,
 }: FileLoggerOptions): FileLoggerFactory {
   const logger = createLogger({
-    level: 'info',
+    level: fileLevel,
     format: format.combine(
       format.timestamp({
-        format: 'YYYY-MM-DD HH:mm:ss',
+        format: 'ZZ YYYY-MM-DD HH:mm:ss',
       }),
       format.json(),
       customFormat,
@@ -59,27 +60,23 @@ export function initFileLoggerFactory({
     transports: [],
   });
 
-  if (!isProduction) {
+  if (fileMode === 'console') {
     /** 非生产环境的话，打到控制台 */
     logger.add(new transports.Console());
+  } else if (fileMode === 'in-hour') {
+    logger.add(
+      new DailyRotateFile({
+        dirname: logFileDir,
+        filename: 'log-%DATE%.log',
+        datePattern: 'YYYY-MM-DD-HH',
+        // zippedArchive: true,
+        maxSize: '100m',
+      }),
+    );
   } else {
-    if (fileLevel === 'in-hour') {
-      logger.add(
-        new DailyRotateFile({
-          dirname: logFileDir,
-          filename: 'log-%DATE%.log',
-          datePattern: 'YYYY-MM-DD-HH',
-          // zippedArchive: true,
-          maxSize: '100m',
-        }),
-      );
-    } else if (fileLevel === 'info') {
-      logger.add(new transports.File({ dirname: logFileDir, filename: 'info.log', level: 'info' }));
-    } else if (fileLevel === 'error') {
-      logger.add(new transports.File({ dirname: logFileDir, filename: 'info.log', level: 'error' }));
-    } else {
-      logger.add(new transports.File({ dirname: logFileDir, filename: 'combined.log' }));
-    }
+    logger.add(
+      new transports.File({ dirname: logFileDir, filename: fileLevel === 'error' ? 'error.log' : 'combined.log' }),
+    );
   }
 
   return {
