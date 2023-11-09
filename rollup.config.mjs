@@ -30,7 +30,7 @@ function getConfig(format, banner) {
         tsconfig: './tsconfig.json',
       }),
       babel({
-        babelHelpers: 'bundled',
+        babelHelpers: 'runtime',
       }),
     ],
   };
