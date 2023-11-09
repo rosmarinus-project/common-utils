@@ -3,15 +3,26 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
+import { sync } from 'glob';
 
 // 非全平台通用的 npm 需要在这里添加
 const external = [];
 
+const inputs = ['src/index.ts', ...sync('src/functions/*.ts'), ...sync('src/modules/*.ts')];
+
+const inputObj = inputs.reduce((acc, cur) => {
+  const name = cur.replace('src/', '').replace('.ts', '');
+
+  acc[name] = cur;
+
+  return acc;
+}, {});
+
 function getConfig(format, banner) {
   return {
-    input: 'src/index.ts',
+    input: inputObj,
     output: {
-      file: `dist/${format}/index.js`,
+      dir: `dist/${format}`,
       format,
       banner,
       sourcemap: true,
@@ -24,6 +35,8 @@ function getConfig(format, banner) {
       }),
       json(),
       typescript({
+        outDir: `dist/${format}`,
+        declarationDir: `dist/${format}`,
         tsconfig: './tsconfig.json',
       }),
       babel({
