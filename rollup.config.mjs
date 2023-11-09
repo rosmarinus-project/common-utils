@@ -3,9 +3,12 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
+import fse from 'fs-extra';
+
+const pkg = fse.readJSONSync('./package.json');
 
 // 非全平台通用的 npm 需要在这里添加
-const external = ['winston-daily-rotate-file', 'winston', 'triple-beam'];
+const external = Object.keys(pkg.dependencies);
 
 function getConfig(format, banner) {
   return {
