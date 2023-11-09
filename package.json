@@ -15,6 +15,16 @@
       "require": "./dist/cjs/index.js",
       "import": "./dist/es/index.js"
     },
+    "./functions/*": {
+      "types": "./dist/es/functions/*.d.ts",
+      "require": "./dist/cjs/functions/*.js",
+      "import": "./dist/es/functions/*.js"
+    },
+    "./modules/*": {
+      "types": "./dist/es/modules/*.d.ts",
+      "require": "./dist/cjs/modules/*.js",
+      "import": "./dist/es/modules/*.js"
+    },
     "./*": "./*"
   },
   "scripts": {
