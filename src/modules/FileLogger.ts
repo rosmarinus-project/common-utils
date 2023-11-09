@@ -18,35 +18,34 @@ export interface FileLoggerOptions {
   fileLevel?: 'error' | 'info';
 }
 
-const customFormat = format.printf((data) => {
-  const { level, timestamp, message, ...rest } = data;
-
-  const notObjMeta = rest[SPLAT] as any[];
-
-  const notObjMetaOutput =
-    notObjMeta
-      ?.map((item) => {
-        if (typeof item === 'object') {
-          return '';
-        }
-
-        return `, ${String(item)}`;
-      })
-      .join('') || '';
-
-  const metaOutput = Object.keys(rest)
-    .map((key) => `, ${safeJSONStringify({ [key]: rest[key] })}`)
-    .join('');
-
-  return `${timestamp} [${level.toUpperCase()}]: ${message}${notObjMetaOutput}${metaOutput}`;
-});
-
 export function initFileLoggerFactory({
   fileMode = 'in-hour',
   defaultMeta,
   fileLevel = 'info',
   logFileDir,
 }: FileLoggerOptions): FileLoggerFactory {
+  const customFormat = format.printf((data) => {
+    const { level, timestamp, message, ...rest } = data;
+
+    const notObjMeta = rest[SPLAT] as any[];
+
+    const notObjMetaOutput =
+      notObjMeta
+        ?.map((item) => {
+          if (typeof item === 'object') {
+            return '';
+          }
+
+          return `, ${String(item)}`;
+        })
+        .join('') || '';
+
+    const metaOutput = Object.keys(rest)
+      .map((key) => `, ${safeJSONStringify({ [key]: rest[key] })}`)
+      .join('');
+
+    return `${timestamp} [${level.toUpperCase()}]: ${message}${notObjMetaOutput}${metaOutput}`;
+  });
   const logger = createLogger({
     level: fileLevel,
     format: format.combine(

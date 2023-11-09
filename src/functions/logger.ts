@@ -1,8 +1,8 @@
 import chalk from 'chalk';
 
-const Log = function (...params: Parameters<typeof console.log>) {
+function Log(...params: Parameters<typeof console.log>) {
   console.log(...params);
-};
+}
 
 export const enum LogType {
   info = 'info',
