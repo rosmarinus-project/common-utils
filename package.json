@@ -2,9 +2,8 @@
   "name": "@rosmarinus/common-utils",
   "version": "2.0.12",
   "description": "some common utils for rosmarinus",
-  "main": "dist/es/index.js",
+  "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
-  "type": "module",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
