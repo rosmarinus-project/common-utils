@@ -47,4 +47,9 @@ function getConfig(format, input, output) {
   };
 }
 
-export default [getConfig('cjs'), getConfig('es'), getConfig('cjs', 'src/babel-plugin.ts', 'plugin')];
+export default [
+  getConfig('cjs'),
+  getConfig('es'),
+  getConfig('cjs', 'src/babel-plugin.ts', 'cjs-plugin'),
+  getConfig('es', 'src/babel-plugin.ts', 'es-plugin'),
+];
