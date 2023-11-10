@@ -25,10 +25,7 @@
       "require": "./dist/cjs/modules/*.js",
       "import": "./dist/es/modules/*.js"
     },
-    "./babel-plugin": {
-      "require": "./dist/cjs-plugin/babel-plugin.js",
-      "import": "./dist/es-plugin/babel-plugin.js"
-    },
+    "./babel-plugin": "./dist/cjs-plugin/babel-plugin.js",
     "./*": "./*"
   },
   "scripts": {
