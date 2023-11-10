@@ -18,13 +18,14 @@ const inputObj = inputs.reduce((acc, cur) => {
   return acc;
 }, {});
 
-function getConfig(format, banner) {
+function getConfig(format, input, output) {
+  const dir = `dist/${output || format}`;
+
   return {
-    input: inputObj,
+    input: input || inputObj,
     output: {
-      dir: `dist/${format}`,
+      dir,
       format,
-      banner,
       sourcemap: true,
     },
     external,
@@ -35,8 +36,8 @@ function getConfig(format, banner) {
       }),
       json(),
       typescript({
-        outDir: `dist/${format}`,
-        declarationDir: `dist/${format}`,
+        outDir: dir,
+        declarationDir: dir,
         tsconfig: './tsconfig.json',
       }),
       babel({
@@ -46,4 +47,4 @@ function getConfig(format, banner) {
   };
 }
 
-export default [getConfig('cjs'), getConfig('es')];
+export default [getConfig('cjs'), getConfig('es'), getConfig('cjs', 'src/babel-plugin.ts', 'plugin')];
