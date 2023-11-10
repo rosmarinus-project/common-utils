@@ -18,24 +18,32 @@ const LogFunc: Record<LogType, chalk.Chalk> = {
   file: chalk.white,
 };
 
-export function info(...args: Parameters<typeof console.log>) {
+function info(...args: Parameters<typeof console.log>) {
   Log(LogFunc.info(...args));
 }
 
-export function warn(...args: Parameters<typeof console.log>) {
+function warn(...args: Parameters<typeof console.log>) {
   Log(LogFunc.warn(...args));
 }
 
-export function error(...args: Parameters<typeof console.log>) {
+function error(...args: Parameters<typeof console.log>) {
   Log(LogFunc.error(...args));
 }
 
-export function file(...args: Parameters<typeof console.log>) {
+function file(...args: Parameters<typeof console.log>) {
   Log(LogFunc.file(...args));
 }
 
-export function logMix(output: { type: LogType; str: string }[]) {
+function logMix(output: { type: LogType; str: string }[]) {
   const str = output.map(({ type, str }) => LogFunc[type](str)).join('');
 
   Log(str);
 }
+
+export const logger = {
+  info,
+  warn,
+  error,
+  file,
+  logMix,
+};

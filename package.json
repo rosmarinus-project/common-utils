@@ -29,7 +29,9 @@
   },
   "scripts": {
     "dev": "rollup -c rollup.config.mjs -w",
-    "build": "rimraf dist && rollup -c rollup.config.mjs",
+    "build": "npm run build:lib && npm run build:map",
+    "build:lib": "rimraf dist && rollup -c rollup.config.mjs",
+    "build:map": "rosmarinus-import-map-generator gen-export-map --config map.config.js",
     "release": "rosmarinus-publish publish",
     "test:unit": "jest --runInBand",
     "prepare": "husky install"
@@ -67,6 +69,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
     "@rosmarinus/eslint-config-rosmarinus": "^1.0.4",
+    "@rosmarinus/import-map-generator": "^0.2.1",
     "@rosmarinus/local-publish-tool": "^1.0.8",
     "@types/fs-extra": "^9.0.12",
     "@types/jest": "^27.4.0",
