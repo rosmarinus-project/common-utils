@@ -6,7 +6,7 @@ import babel from '@rollup/plugin-babel';
 import { sync } from 'glob';
 
 // 非全平台通用的 npm 需要在这里添加
-const external = [];
+const external = ['@rollup/plugin-babel'];
 
 const inputs = ['src/index.ts', ...sync('src/functions/*.ts'), ...sync('src/modules/*.ts')];
 
