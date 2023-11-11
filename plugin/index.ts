@@ -18,6 +18,7 @@ export function vitePlugin(): Plugin {
         );
       } else {
         if (!config.plugins) {
+          // eslint-disable-next-line no-param-reassign
           config.plugins = [];
         }
 
