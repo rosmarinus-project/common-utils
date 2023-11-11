@@ -2,28 +2,13 @@ import babel from '@rollup/plugin-babel';
 import type { Plugin } from 'vite';
 
 export function vitePlugin(): Plugin {
+  const b = babel({
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.cjs', '.mjs'],
+    plugins: ['@rosmarinus/common-utils/babel-plugin'],
+  });
+
   return {
+    ...b,
     name: '@rosmarinus/common-utils/vite-plugin',
-    config(config) {
-      const b = babel({
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.cjs', '.mjs'],
-        plugins: ['@rosmarinus/common-utils/babel-plugin'],
-      });
-
-      const index = config.plugins?.findIndex((plugin) => (plugin as any)?.name === b.name);
-
-      if (index !== undefined && index !== -1) {
-        throw new Error(
-          '此插件不可以和 @rollup/plugin-babel 一起使用，如果你已经配置了 @rollup/plugin-babel， 则自行添加 @rosmarinus/common-utils/babel-plugin',
-        );
-      } else {
-        if (!config.plugins) {
-          // eslint-disable-next-line no-param-reassign
-          config.plugins = [];
-        }
-
-        config.plugins?.push(b as any);
-      }
-    },
-  };
+  } as any;
 }
