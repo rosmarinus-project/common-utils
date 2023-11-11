@@ -18,7 +18,8 @@ const inputObj = inputs.reduce((acc, cur) => {
   return acc;
 }, {});
 
-function getConfig(format, input, output) {
+// eslint-disable-next-line max-params
+function getConfig(format, input, output, tsconfig = './tsconfig.json') {
   const dir = `dist/${output || format}`;
 
   return {
@@ -38,7 +39,7 @@ function getConfig(format, input, output) {
       typescript({
         outDir: dir,
         declarationDir: dir,
-        tsconfig: './tsconfig.json',
+        tsconfig,
       }),
       babel({
         babelHelpers: 'bundled',
@@ -50,6 +51,8 @@ function getConfig(format, input, output) {
 export default [
   getConfig('cjs'),
   getConfig('es'),
-  getConfig('cjs', 'src/babel-plugin.ts', 'cjs-plugin'),
-  getConfig('es', 'src/babel-plugin.ts', 'es-plugin'),
+  getConfig('cjs', 'plugin/babel-plugin.ts', 'cjs-babel-plugin', 'tsconfig.babel.json'),
+  getConfig('es', 'plugin/babel-plugin.ts', 'es-babel-plugin', 'tsconfig.babel.json'),
+  getConfig('cjs', 'plugin/index.ts', 'cjs-plugin', 'tsconfig.plugin.json'),
+  getConfig('es', 'plugin/index.ts', 'es-plugin', 'tsconfig.plugin.json'),
 ];

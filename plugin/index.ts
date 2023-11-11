@@ -1,11 +1,12 @@
-import { Plugin } from 'vite';
 import babel from '@rollup/plugin-babel';
+import type { Plugin } from 'vite';
 
-export default function vitePlugin(): Plugin {
+export function vitePlugin(): Plugin {
   return {
     name: '@rosmarinus/common-utils/vite-plugin',
     config(config) {
       const b = babel({
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.cjs', '.mjs'],
         plugins: ['@rosmarinus/common-utils/babel-plugin'],
       });
 
@@ -15,13 +16,13 @@ export default function vitePlugin(): Plugin {
         throw new Error(
           '此插件不可以和 @rollup/plugin-babel 一起使用，如果你已经配置了 @rollup/plugin-babel， 则自行添加 @rosmarinus/common-utils/babel-plugin',
         );
-      }
+      } else {
+        if (!config.plugins) {
+          config.plugins = [];
+        }
 
-      if (!config.plugins) {
-        config.plugins = [];
+        config.plugins?.push(b as any);
       }
-
-      config.plugins?.push(b as any);
     },
   };
 }

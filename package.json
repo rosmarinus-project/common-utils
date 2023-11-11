@@ -25,7 +25,16 @@
       "require": "./dist/cjs/modules/*.js",
       "import": "./dist/es/modules/*.js"
     },
-    "./babel-plugin": "./dist/cjs-plugin/babel-plugin.js",
+    "./babel-plugin": {
+      "types": "./dist/es-babel-plugin/babel-plugin.d.ts",
+      "require": "./dist/cjs-babel-plugin/babel-plugin.js",
+      "import": "./dist/es-babel-plugin/babel-plugin.js"
+    },
+    "./plugins": {
+      "types": "./dist/es-plugin/index.d.ts",
+      "require": "./dist/cjs-plugin/index.js",
+      "import": "./dist/es-plugin/index.js"
+    },
     "./*": "./*"
   },
   "scripts": {
