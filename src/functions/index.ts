@@ -5,3 +5,5 @@ export * from './logger';
 export * from './uuid';
 
 export * from './json';
+
+export * from './try';
