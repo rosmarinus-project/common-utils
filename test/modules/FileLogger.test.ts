@@ -1,4 +1,4 @@
-import { initFileLoggerFactory } from '../src';
+import { initFileLoggerFactory } from '../../src';
 
 describe('FileLogger', () => {
   beforeEach(() => {});

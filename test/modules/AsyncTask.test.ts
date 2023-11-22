@@ -1,4 +1,4 @@
-import { AsyncTask, AsyncTaskPool } from '../src';
+import { AsyncTask, AsyncTaskPool } from '../../src';
 
 // eslint-disable-next-line max-lines-per-function
 describe('async task', () => {

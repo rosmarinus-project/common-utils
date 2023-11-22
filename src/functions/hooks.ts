@@ -17,10 +17,10 @@ export function hookAsyncData<T>(init: Promise<T> | (() => Promise<T>)) {
     setData: (newData: T) => {
       data = newData;
     },
-    setDataInFn: (fn: (data: T) => T) => {
-      getData().then((nowData) => {
-        data = fn(nowData);
-      });
+    setDataInFn: async (fn: (data: T) => T) => {
+      const nowData = await getData();
+
+      data = fn(nowData);
     },
   };
 }
