@@ -41,6 +41,14 @@ FileLogger is a file logger that can be used in nodejs and environments to outpu
 
 This module is a wrapper for the JSON.stringify and JSON.parse methods to make them more secure.
 
+6. is-type
+
+Some functions to determine the type of data, such as isArray, isObject, isString, etc.
+
+7. try
+
+This module is a wrapper for try-catch, which can return undefined when an error occurs.
+
 # About Tree shaking
 this npm doesn't support tree shaking, because it use some npm packages that don't support tree shaking.
 
