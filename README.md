@@ -49,6 +49,11 @@ Some functions to determine the type of data, such as isArray, isObject, isStrin
 
 This module is a wrapper for try-catch, which can return undefined when an error occurs.
 
+8. url
+
+This module is a collection of url handle function, such as handling url params to object.
+
+
 # About Tree shaking
 this npm doesn't support tree shaking, because it use some npm packages that don't support tree shaking.
 
