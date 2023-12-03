@@ -1,8 +1,4 @@
-import typescript from '@rollup/plugin-typescript';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import json from '@rollup/plugin-json';
-import babel from '@rollup/plugin-babel';
+import common from '@rosmarinus/common-plugins';
 import { sync } from 'glob';
 
 // 非全平台通用的 npm 需要在这里添加
@@ -31,18 +27,12 @@ function getConfig(format, input, output, tsconfig = './tsconfig.json') {
     },
     external,
     plugins: [
-      commonjs(),
-      resolve({
-        preferBuiltins: true,
-      }),
-      json(),
-      typescript({
-        outDir: dir,
-        declarationDir: dir,
-        tsconfig,
-      }),
-      babel({
-        babelHelpers: 'bundled',
+      common({
+        ts: {
+          outDir: dir,
+          declarationDir: dir,
+          tsconfig,
+        },
       }),
     ],
   };

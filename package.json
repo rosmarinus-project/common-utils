@@ -59,25 +59,19 @@
     "vite": "^4.5.0"
   },
   "dependencies": {
-    "@rosmarinus/babel-plugin-tree-cutting": "^2.1.1",
     "@rollup/plugin-babel": "^6.0.4",
+    "@rosmarinus/babel-plugin-tree-cutting": "^2.1.1",
     "chalk": "^4.1.2",
     "fast-safe-stringify": "^2.1.1",
     "performance-now": "^2.1.0",
-    "triple-beam": "^1.4.1",
     "tslib": "^2.6.2",
-    "uuid": "^9.0.1",
-    "winston": "^3.11.0",
-    "winston-daily-rotate-file": "^4.7.1"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.16.8",
     "@babel/preset-typescript": "^7.16.7",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5",
+    "@rosmarinus/common-plugins": "^0.2.2",
     "@rosmarinus/eslint-config-rosmarinus": "^1.0.4",
     "@rosmarinus/import-map-generator": "^0.2.1",
     "@rosmarinus/local-publish-tool": "^1.0.8",
